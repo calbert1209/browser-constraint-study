@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Camera Constraints Study</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans+Condensed&display=swap"
+  rel="stylesheet">
+  <link rel="stylesheet" href="./css/camera.css">
+</head>
+<body>
+  <h1>camera study</h1>
+  <video id="video" autoplay ></video>
+  <div class="form">
+    <select id="deviceSelector"></select>
+    <div class="input">
+      <label for="widthIn">width:</label>
+      <input type="text" name="" id="widthIn">
+      <select id="widthInSelector">
+        <option value="ideal">ideal</option>
+        <option value="exact">exact</option>
+        <option value="min">min</option>
+        <option value="max">max</option>
+      </select>
+    </div>
+    <div class="input">
+      <label for="heightIn">height:</label>
+      <input type="text" name="" id="heightIn">
+      <select id="heightInSelector">
+        <option value="ideal">ideal</option>
+        <option value="exact">exact</option>
+        <option value="min">min</option>
+        <option value="max">max</option>
+      </select>
+    </div>
+    <div class="input">
+      <label for="aspectIn">aspect:</label>
+      <input type="text" name="" id="aspectIn">
+      <select id="aspectInSelector">
+        <option value="ideal">ideal</option>
+        <option value="exact">exact</option>
+        <option value="min">min</option>
+        <option value="max">max</option>
+      </select>
+    <div class="input">
+      <label for="aspectIn">audio sample rate:</label>
+      <input type="text" name="" id="aSampleRateIn">
+      <select id="aSampleRateInSelector">
+        <option value="ideal">ideal</option>
+        <option value="exact">exact</option>
+        <option value="min">min</option>
+        <option value="max">max</option>
+      </select>
+    </div>
+    <button onclick="startCamera()">start</button>
+    <button onclick="stopCamera()">stop</button>
+    <details>
+      <summary>dimensions</summary>
+      <pre class="output" id="dimensions"></pre>
+    </details>
+    <h3>Settings</h3>
+    <details>
+      <summary>video</summary>
+      <pre class="output" id="v-settings"></pre>
+    </details>
+    <details>
+      <summary>audio</summary>
+      <pre class="output" id="a-settings"></pre>
+    </details>
+    <h3>Capabilities</h3>
+    <details>
+      <summary>video track capabilities</summary>
+      <pre class="output" id="v-caps"></pre>
+    </details>
+    <details>
+      <summary>audio track capabilities</summary>
+      <pre class="output" id="a-caps"></pre>
+    </details>
+    <h3>Constraints</h3>
+    <details>
+      <summary>video track constraints</summary>
+      <pre class="output" id="v-constraints"></pre>
+    </details>
+    <details>
+      <summary>audio track constraints</summary>
+      <pre class="output" id="a-constraints"></pre>
+    </details>
+    
+  </div>
+  <script defer type="text/javascript" src="./js/camera.js" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "constraints-study",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Christian Albert <calbert1209@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -a localhost -p 8077 -c-1"
+  },
+  "dependencies": {
+    "http-server": "^0.12.3"
+  }
+}

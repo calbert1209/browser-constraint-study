@@ -1,0 +1,41 @@
+:root {
+  --videoWidth: 360px;
+}
+
+body, button, details {
+  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+h1, h2, label, button, summary {
+  font-family: 'IBM Plex Sans Condensed', Arial, Helvetica, sans-serif
+}
+
+#video {
+  width: var(--videoWidth);
+  background-color: grey;
+  display: block;
+}
+.form {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.form .input {
+  display: block;
+}
+
+input, label {
+  font-size: 16px;
+  font-family: 'IBM Plex Mono', 'Courier New', Courier, monospace;
+}
+
+.output {
+  min-height: 1em;
+  background-color: whitesmoke;
+  color: #666666;
+  font-family: 'IBM Plex Mono', 'Courier New', Courier, monospace;
+  padding: 10px;
+}
