@@ -10,7 +10,7 @@ player.addEventListener("playing", ev => {
 })
 
 function populateSelector(items) {
-  items.forEach(({ label, deviceId}, index) => {
+  items.forEach(({ label, deviceId }) => {
     const opt = document.createElement("option");
     opt.value = deviceId;
     opt.innerHTML = label;
@@ -23,36 +23,33 @@ function getCurrentDeviceId() {
   return videoDevices[videoDeviceIndex].deviceId;
 }
 
-(function setupDeviceSelector(){
+(async function setupDeviceSelector() {
   if (videoDevices.length > 0) {
     populateSelector(videoDevices);
     return;
   }
 
-  navigator.mediaDevices.getUserMedia({video: true})
-    .then(dummyStream => {
-      const dummyVideo = document.createElement("video");
-      dummyVideo.srcObject = dummyStream;
-      dummyVideo.play();
-      dummyVideo.pause();
-      // dummyVideo.srcObject = null;
-      dummyStream.getVideoTracks().forEach(trk => trk.stop());
-    }).then(() => {
-      return navigator.mediaDevices.enumerateDevices()
-    })
-    .then(devices => {
-      const vDevices = devices.filter(dev => dev.kind === "videoinput");
-      populateSelector(vDevices);
-      videoDevices = vDevices;
-    })
-    .catch(console.error);
+  try {
+    const dummyStream = await navigator.mediaDevices.getUserMedia({ video: true });
+    const dummyVideo = document.createElement("video");
+    dummyVideo.srcObject = dummyStream;
+    await dummyVideo.play();
+    dummyStream.getVideoTracks().forEach(trk => trk.stop());
+    dummyVideo.srcObject = null;
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const vDevices = devices.filter(dev => dev.kind === "videoinput");
+    populateSelector(vDevices);
+    videoDevices = vDevices;
+  } catch (e) {
+    console.error(e);
+  }
 })();
 
-function onSelectChanged () {
+function onSelectChanged() {
   const { selectedIndex, options } = this;
   const { value, innerHTML } = options[selectedIndex];
   videoDeviceIndex = selectedIndex;
-  console.log({deviceId: value, label: innerHTML, index: selectedIndex});
+  console.log({ deviceId: value, label: innerHTML, index: selectedIndex });
 }
 
 selector.addEventListener("change", onSelectChanged);
@@ -68,8 +65,9 @@ function stopCamera() {
   tracks.forEach(track => track.stop());
   stream = null;
 
-  ["dimensions", "settings", "caps", "constraints"].forEach(id => {
-    logToPre(id, "");
+  const outputNodes = document.querySelectorAll("pre.output");
+  [...outputNodes].forEach(node => {
+    logToPre(node.id, "");
   })
 }
 
@@ -85,7 +83,7 @@ function startCamera() {
     }
   }
 
-  const {width, height, aspect, aSampleRate } = getFormData();
+  const { width, height, aspect, aSampleRate } = getFormData();
   if (width.value > 0) {
     dummyConstraints.video['width'] = { [width.modifier]: width.value };
   }
@@ -114,7 +112,7 @@ function startCamera() {
 
 function getParamModifier(paramName) {
   const id = `${paramName}Selector`;
-  const {options, selectedIndex} = document.getElementById(id);
+  const { options, selectedIndex } = document.getElementById(id);
   return options[selectedIndex].value;
 }
 
@@ -124,13 +122,13 @@ function getFormData() {
     const inputValue = document.getElementById(id).value;
     const parsedValue = parseInt(inputValue);
     const key = id.split("I")[0];
-    sum[key] = {value: parsedValue, modifier};
+    sum[key] = { value: parsedValue, modifier };
     return sum;
   }, {});
 }
 
 function logToPre(id, msg) {
-  const elem = document.getElementById(id)
+  const elem = document.getElementById(id);
   elem.innerText = msg;
   elem.parentElement.open = (msg.length > 0);
 }
