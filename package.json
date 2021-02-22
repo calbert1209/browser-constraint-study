@@ -1,15 +1,18 @@
 {
   "name": "constraints-study",
+  "description": "A test app to study how different browsers respond to getUserMedia().",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Christian Albert <calbert1209@gmail.com>",
   "license": "MIT",
+  "repository": "calbert1209/browser-constraint-study",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server -a localhost -p 8077 -c-1"
+    "start": "node server.js",
+    "devStart": "yarn nodemon server.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "finalhandler": "^1.1.2",
     "serve-static": "^1.14.1"
   },
   "devDependencies": {
